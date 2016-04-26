@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+	<session-factory>
+
+		<!-- Do not specify your JDBC driver Jar! -->
+
+		<!-- Settings for a remote Sybase database. -->
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql:///hobuy</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">3416779A</property>
+
+		<!-- Use the C3P0 connection pool. -->
+		<property name="hibernate.c3p0.max_size">80</property>
+		<property name="hibernate.c3p0.min_size">10</property>
+		<property name="hibernate.c3p0.max_statements">100</property>
+		<property name="hibernate.c3p0.timeout">1800</property>
+		<!-- Use the Hibernate built-in pool for tests. -->
+		<property name="connection.pool_size">30</property>
+
+		<!-- Use EHCache but not the query cache. -->
+		<!-- <property name="cache.provider_class">net.sf.ehcache.hibernate.Provider</property> 
+			<property name="cache.use_query_cache">false</property> <property name="cache.use_minimal_puts">false</property> -->
+		<!-- Print SQL to stdout. -->
+		<property name="show_sql">true</property>
+		<property name="hbm2ddl.auto">update</property>
+		<!-- <property name="format_sql">true</property> -->
+		<property name="current_session_context_class">thread</property>
+		
+		
+			<!-- Mapping files -->
+      <mapping resource="hobuy\domain\Waiter.hbm.xml"/>
+		<mapping resource="hobuy\domain\Img_group.hbm.xml" />
+		<mapping resource="hobuy\domain\Order_product.hbm.xml" />
+		<mapping resource="hobuy\domain\Order.hbm.xml" />
+		<mapping resource="hobuy\domain\Shoppingcart.hbm.xml" />
+		<mapping resource="hobuy\domain\Product_evaluate.hbm.xml" />
+		<mapping resource="hobuy\domain\Clazz.hbm.xml" />
+		<mapping resource="hobuy\domain\Repertory.hbm.xml" />
+		<mapping resource="hobuy\domain\Product.hbm.xml" />
+		<mapping resource="hobuy\domain\Soler_property.hbm.xml" />
+		<mapping resource="hobuy\domain\Soler_evaluate.hbm.xml" />
+		<mapping resource="hobuy\domain\User_evaluate.hbm.xml" />
+		<mapping resource="hobuy\domain\Soler.hbm.xml" />
+		<mapping resource="hobuy\domain\Address.hbm.xml" />
+		<mapping resource="hobuy\domain\User.hbm.xml" />
+
+
+	</session-factory>
+
+
+</hibernate-configuration>

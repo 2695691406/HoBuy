@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hibernate XML Mapping File -->
+<!-- Author: ZD -->
+<!-- Modified: 2016年2月16日 11:19:50 -->
+<!DOCTYPE hibernate-mapping PUBLIC
+   "-//Hibernate/Hibernate Mapping DTD//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="hobuy.domain" auto-import="true">
+   <class name="Shoppingcart" table="shoppingcart" mutable="true" dynamic-update="false" dynamic-insert="false" select-before-update="false" lazy="true" abstract="false">
+      <id name="id">
+         <column name="id" sql-type="bigint" not-null="true"/>
+      <generator class="increment"></generator></id>
+      <property name="sum" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="sum" sql-type="int"/>
+      </property>
+      <property name="createtime" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="createtime" sql-type="datetime"/>
+      </property>
+      <property name="state" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="state" sql-type="int"/>
+      </property>
+      <many-to-one name="user" class="hobuy.domain.User" outer-join="false" update="true" insert="true">
+      	<column name="user_id" sql-type="bigint" not-null="false" length="0"/>
+      </many-to-one>
+      <many-to-one name="repertory" class="hobuy.domain.Repertory" outer-join="false" update="true" insert="true">
+      	<column name="repertory_id" sql-type="bigint" not-null="false" length="0"/>
+      </many-to-one>
+   </class>
+</hibernate-mapping>

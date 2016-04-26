@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="HoBuy:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="HoBuy.war">
+      <element id="artifact" artifact-name="HoBuy:war exploded" />
+    </root>
+  </artifact>
+</component>

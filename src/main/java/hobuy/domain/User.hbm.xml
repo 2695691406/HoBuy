@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hibernate XML Mapping File -->
+<!-- Author: ZD -->
+<!-- Modified: 2016年2月16日 11:19:50 -->
+<!DOCTYPE hibernate-mapping PUBLIC
+   "-//Hibernate/Hibernate Mapping DTD//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="hobuy.domain" auto-import="true">
+   <class name="User" table="user" mutable="true" dynamic-update="false" dynamic-insert="false" select-before-update="false" lazy="true" abstract="false">
+      <id name="id">
+         <column name="id" sql-type="bigint" not-null="true"/>
+      <generator class="increment"></generator></id>
+      <property name="photoimg" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="photoimg" sql-type="varchar(128)" length="128"/>
+      </property>
+      <property name="email" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="email" sql-type="varchar(64)" length="64"/>
+      </property>
+      <property name="pwd" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="pwd" sql-type="varchar(64)" length="64"/>
+      </property>
+      <property name="name" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="name" sql-type="varchar(64)" length="64"/>
+      </property>
+      <property name="phone" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="phone" sql-type="varchar(13)" length="13"/>
+      </property>
+      <property name="createtime" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="createtime" sql-type="datetime"/>
+      </property>
+      <property name="state" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="state" sql-type="int"/>
+      </property>
+      <property name="arrage" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="arrage" sql-type="bit"/>
+      </property>
+      <property name="reputaion" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="reputaion" sql-type="double"/>
+      </property>
+      <property name="count" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="count" sql-type="int"/>
+      </property>
+      <property name="authentication" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="authentication" sql-type="int"/>
+      </property>
+      <many-to-one name="university" class="hobuy.domain.University" outer-join="false" update="true" insert="true">
+      	<column name="university" sql-type="int" not-null="false" length="0"/>
+      </many-to-one>
+      <bag name="product_evaluate" outer-join="false" lazy="true" optimistic-lock="true">
+      	<key on-delete="noaction" unique="false">
+      		<column name="user_id" sql-type="bigint" not-null="false" length="0"/>
+      	</key>
+      	<one-to-many class="hobuy.domain.Product_evaluate"/>
+      </bag>
+      <bag name="order" outer-join="false" lazy="true" optimistic-lock="true">
+      	<key on-delete="noaction" unique="false">
+      		<column name="user_id" sql-type="bigint" not-null="false" length="0"/>
+      	</key>
+      	<one-to-many class="hobuy.domain.Order"/>
+      </bag>
+      <bag name="address" outer-join="false" lazy="true" optimistic-lock="true">
+      	<key on-delete="noaction" unique="false">
+      		<column name="user_id" sql-type="bigint" not-null="false" length="0"/>
+      	</key>
+      	<one-to-many class="hobuy.domain.Address"/>
+      </bag>
+      <bag name="soler_evaluate" outer-join="false" lazy="true" optimistic-lock="true">
+      	<key on-delete="noaction" unique="false">
+      		<column name="user_id" sql-type="bigint" not-null="false" length="0"/>
+      	</key>
+      	<one-to-many class="hobuy.domain.Soler_evaluate"/>
+      </bag>
+      <bag name="user_evaluate" outer-join="false" lazy="true" optimistic-lock="true">
+      	<key on-delete="noaction" unique="false">
+      		<column name="user_id" sql-type="bigint" not-null="false" length="0"/>
+      	</key>
+      	<one-to-many class="hobuy.domain.User_evaluate"/>
+      </bag>
+      <bag name="shoppingcart" outer-join="false" lazy="true" optimistic-lock="true">
+      	<key on-delete="noaction" unique="false">
+      		<column name="user_id" sql-type="bigint" not-null="false" length="0"/>
+      	</key>
+      	<one-to-many class="hobuy.domain.Shoppingcart"/>
+      </bag>
+   </class>
+</hibernate-mapping>

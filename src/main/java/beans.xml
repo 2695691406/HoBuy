@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        ">
+	<!-- 
+	<bean id="userDaoImpl" class="hobuy.domain.daoimpl.hibernate.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="addressDaoImpl" class="hobuy.domain.daoimpl.hibernate.AddressDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="solerDaoImpl" class="hobuy.domain.daoimpl.hibernate.SolerDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="clazzDaoImpl" class="hobuy.domain.daoimpl.hibernate.ClazzDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="waiterDaoImpl" class="hobuy.domain.daoimpl.hibernate.WaiterDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="img_groupDaoImpl" class="hobuy.domain.daoimpl.hibernate.Img_groupDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="order_productDaoImpl" class="hobuy.domain.daoimpl.hibernate.Order_productDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="orderDaoImpl" class="hobuy.domain.daoimpl.hibernate.OrderDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="product_evaluateDaoImpl" class="hobuy.domain.daoimpl.hibernate.Product_evaluateDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="productDaoImpl" class="hobuy.domain.daoimpl.hibernate.ProductDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="repertoryDaoImpl" class="hobuy.domain.daoimpl.hibernate.RepertoryDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="shoppingcartDaoImpl" class="hobuy.domain.daoimpl.hibernate.ShoppingcartDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="soler_evaluateDaoImpl" class="hobuy.domain.daoimpl.hibernate.Soler_evaluateDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="soler_propertyDaoImpl" class="hobuy.domain.daoimpl.hibernate.Soler_propertyDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="user_evaluateDaoImpl" class="hobuy.domain.daoimpl.hibernate.User_evaluateDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean> -->
+	<context:component-scan base-package="hobuy"/>
+	<!-- 数据源 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/hobuy"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="3416779A"></property>
+	</bean>
+	<!-- hibernate 会话工厂 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<!-- hibernate映射文件地址 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mappingDirectoryLocations" value="classpath:hobuy/domain/"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.Dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	 <tx:advice id="bookAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" propagation="REQUIRED" />
+			<tx:method name="find*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="query*" propagation="REQUIRED" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="load*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice> 
+	<!-- 配置事务切面 -->
+	<aop:config>
+		<aop:advisor advice-ref="bookAdvice"
+			pointcut="execution(* hobuy.domain.dao..*.*(..))" />
+	</aop:config> 
+
+
+</beans>

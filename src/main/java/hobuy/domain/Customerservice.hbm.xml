@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hibernate XML Mapping File -->
+<!-- Author: ZD -->
+<!-- Modified: 2016年1月31日 21:38:42 -->
+<!DOCTYPE hibernate-mapping PUBLIC
+   "-//Hibernate/Hibernate Mapping DTD//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="hobuy.domain" auto-import="true">
+	<class name="Customerservice" table="customerservice" mutable="true"
+		dynamic-update="false" dynamic-insert="false" select-before-update="false"
+		lazy="true" abstract="false">
+		<id name="id">
+			<column name="id" sql-type="bigint" />
+			<generator class="increment"></generator>
+		</id>
+		<property name="name" insert="true" update="true" lazy="false"
+			optimistic-lock="true">
+			<column name="name" sql-type="varchar(32)" length="32" />
+		</property>
+		<property name="phone" insert="true" update="true" lazy="false"
+			optimistic-lock="true">
+			<column name="phone" sql-type="varchar(13)" length="13" />
+		</property>
+		<property name="account" insert="true" update="true" lazy="false"
+			optimistic-lock="true">
+			<column name="account" sql-type="bigint" />
+		</property>
+		<property name="type" insert="true" update="true" lazy="false"
+			optimistic-lock="true">
+			<column name="type" sql-type="int" />
+		</property>
+		<many-to-one name="soler" class="hobuy.domain.Soler"
+			outer-join="false" update="true" insert="true">
+			<column name="soler_id" sql-type="bigint" not-null="false"
+				length="0" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

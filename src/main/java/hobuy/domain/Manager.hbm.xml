@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hibernate XML Mapping File -->
+<!-- Author: ZD -->
+<!-- Modified: 2016年2月16日 11:50:47 -->
+<!DOCTYPE hibernate-mapping PUBLIC
+   "-//Hibernate/Hibernate Mapping DTD//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="hobuy.domain" auto-import="true">
+   <class name="Manager" table="manager" mutable="true" dynamic-update="false" dynamic-insert="false" select-before-update="false" lazy="true" abstract="false">
+      <id name="id">
+         <column name="id" sql-type="varchar(64)" not-null="true" length="64"/>
+      <generator class="uuid"></generator></id>
+      <property name="name" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="name" sql-type="varchar(64)" length="64"/>
+      </property>
+      <property name="phone" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="phone" sql-type="varchar(13)" length="13"/>
+      </property>
+      <property name="instate" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="instate" sql-type="datetime"/>
+      </property>
+      <property name="outstate" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="outstate" sql-type="datetime"/>
+      </property>
+      <property name="state" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="state" sql-type="int"/>
+      </property>
+      <property name="introduce" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="introduce" sql-type="varchar(255)" length="255"/>
+      </property>
+      <property name="materialurl" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="materialurl" sql-type="varchar(255)" length="255"/>
+      </property>
+      <property name="salary" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="salary" sql-type="double"/>
+      </property>
+      <property name="super_manager" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="super_manager" sql-type="varchar(64)" length="64"/>
+      </property>
+      <many-to-one name="supermanager" class="hobuy.domain.Supermanager" outer-join="false" update="true" insert="true">
+      	<column name="allowid" sql-type="varchar(64)" not-null="false" length="64"/>
+      </many-to-one>
+      <many-to-one name="authority" class="hobuy.domain.Authority" outer-join="false" update="true" insert="true">
+      	<column name="authority_id" sql-type="int" not-null="false" length="0"/>
+      </many-to-one>
+      <bag name="worker" outer-join="false" lazy="true" optimistic-lock="true">
+      	<key on-delete="noaction" unique="false">
+      		<column name="recommend_id" sql-type="varchar(64)" not-null="false" length="64"/>
+      	</key>
+      	<one-to-many class="hobuy.domain.Worker"/>
+      </bag>
+      <bag name="postion" outer-join="false" lazy="true" optimistic-lock="true">
+      	<key on-delete="noaction" unique="false">
+      		<column name="manager_id" sql-type="varchar(64)" not-null="false" length="64"/>
+      	</key>
+      	<one-to-many class="hobuy.domain.Postion"/>
+      </bag>
+      <bag name="index_postion" outer-join="false" lazy="true" optimistic-lock="true">
+      	<key on-delete="noaction" unique="false">
+      		<column name="tec_manager_id" sql-type="varchar(64)" not-null="false" length="64"/>
+      	</key>
+      	<one-to-many class="hobuy.domain.Index_postion"/>
+      </bag>
+   </class>
+</hibernate-mapping>

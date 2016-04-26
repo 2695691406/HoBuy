@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hibernate XML Mapping File -->
+<!-- Author: ZD -->
+<!-- Modified: 2016年2月16日 11:19:50 -->
+<!DOCTYPE hibernate-mapping PUBLIC
+   "-//Hibernate/Hibernate Mapping DTD//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="hobuy.domain" auto-import="true">
+   <class name="Product_evaluate" table="product_evaluate" mutable="true" dynamic-update="false" dynamic-insert="false" select-before-update="false" lazy="true" abstract="false">
+      <id name="id">
+         <column name="id" sql-type="bigint" not-null="true"/>
+      <generator class="increment"></generator></id>
+      <property name="order_id" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="order_id" sql-type="bigint"/>
+      </property>
+      <property name="time" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="time" sql-type="datetime"/>
+      </property>
+      <property name="content" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="content" sql-type="varchar(128)" length="128"/>
+      </property>
+      <property name="evaluate_level" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="evaluate_level" sql-type="int"/>
+      </property>
+      <many-to-one name="product" class="hobuy.domain.Product" outer-join="false" update="true" insert="true">
+      	<column name="product_id" sql-type="bigint" not-null="false" length="0"/>
+      </many-to-one>
+      <many-to-one name="user" class="hobuy.domain.User" outer-join="false" update="true" insert="true">
+      	<column name="user_id" sql-type="bigint" not-null="false" length="0"/>
+      </many-to-one>
+   </class>
+</hibernate-mapping>

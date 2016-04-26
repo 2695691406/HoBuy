@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hibernate XML Mapping File -->
+<!-- Author: ZD -->
+<!-- Modified: 2016年2月16日 11:50:36 -->
+<!DOCTYPE hibernate-mapping PUBLIC
+   "-//Hibernate/Hibernate Mapping DTD//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="hobuy.domain" auto-import="true">
+   <class name="Index_product" table="index_product" mutable="true" dynamic-update="false" dynamic-insert="false" select-before-update="false" lazy="true" abstract="false">
+      <id name="id">
+         <column name="id" sql-type="int" not-null="true"/>
+      <generator class="increment"></generator></id>
+      <property name="startdate" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="startdate" sql-type="datetime"/>
+      </property>
+      <property name="enddate" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="enddate" sql-type="datetime"/>
+      </property>
+      <property name="imgurl" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="imgurl" sql-type="varchar(256)" length="256"/>
+      </property>
+      <property name="createtime" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="createtime" sql-type="datetime"/>
+      </property>
+      <property name="state" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="state" sql-type="int"/>
+      </property>
+      <property name="price" insert="true" update="true" lazy="false" optimistic-lock="true">
+         <column name="price" sql-type="double"/>
+      </property>
+      <many-to-one name="index_postion" class="hobuy.domain.Index_postion" outer-join="false" update="true" insert="true">
+      	<column name="postion" sql-type="int" not-null="false" length="0"/>
+      </many-to-one>
+      <many-to-one name="product" class="hobuy.domain.Product" outer-join="false" update="true" insert="true">
+      	<column name="product_id" sql-type="bigint" not-null="false" length="0"/>
+      </many-to-one>
+      <many-to-one name="worker" class="hobuy.domain.Worker" outer-join="false" update="true" insert="true">
+      	<column name="update_id" sql-type="varchar(64)" not-null="false" length="64"/>
+      </many-to-one>
+      <!--Error: reference has not mapping yet. You must append it.-->
+      <many-to-one name="university" class="hobuy.domain.University" outer-join="false" update="true" insert="true">
+      
+      </many-to-one>
+   </class>
+</hibernate-mapping>

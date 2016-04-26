@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd 
+						http://www.springframework.org/schema/mvc 
+						http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd 
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+
+	<!-- springmvc扫描器 -->
+	<context:component-scan base-package="hobuy.controller"></context:component-scan>
+	<!-- springmvc注解驱动器 -->
+	<mvc:annotation-driven />
+	<!-- 注解映射器 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+	<!-- 注解适配器 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" />
+	<!-- 控制器 -->
+	<!-- <bean id="indexController" name="/index.do" class="taobao.controller.IndexController"> 
+		</bean> -->
+	<!-- 视图解析器 -->
+	<bean name="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10240000"></property>
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value=""></property>
+		<property name="suffix" value=""></property>
+	</bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/solercenter/**"/>
+			<bean class="hobuy.interceptor.SolerLoginInterceptor"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/usercenter/**"/>
+			<bean class="hobuy.interceptor.UserLoginInterceptor"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="hobuy.interceptor.RequestInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- 控制器映射表 -->
+	<!-- bean name映射表（默认） -->
+	<!-- <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"> 
+		</bean> -->
+	<!-- url映射表 -->
+	<!-- <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"></bean> -->
+	<!-- controller class name 映射表(默认首字母小写) -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"></bean> -->
+</beans>
